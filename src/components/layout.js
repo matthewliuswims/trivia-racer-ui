@@ -7,25 +7,23 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import { createGlobalStyle } from "styled-components" // https://styled-components.com/docs/api
 
-import Header from "./header"
+import Header from "./Header"
 import "./layout.css"
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+const GlobalStyle = createGlobalStyle`
+  h2 {
+    color: red;
+  }
+`
 
+const Layout = ({ children, title }) => {
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
+      {/* gatsby recommends to put global style with other high level stuff - see https://www.gatsbyjs.org/docs/global-css/ */}
+      <GlobalStyle />
+      <Header title={title} />
       <div
         style={{
           margin: `0 auto`,
