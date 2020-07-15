@@ -9,7 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { createGlobalStyle } from "styled-components" // https://styled-components.com/docs/api
 
-import Header from "./Header"
+import Header from "../Header"
 import "./layout.css"
 
 const GlobalStyle = createGlobalStyle`

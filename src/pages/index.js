@@ -1,9 +1,11 @@
 import React from "react"
 import { Link } from "gatsby"
-import styled from "styled-components" // following https://www.reddit.com/r/reactjs/comments/aynfex/styled_components_share_your_folderfile_structure/
+import styled from "styled-components"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
+import Layout from "../components/Layout"
+import Image from "../components/Image"
+
+// following styled component strucutre of https://stackoverflow.com/a/45391702/11303031
 
 const IndexPage = () => (
   <Layout title="Home">

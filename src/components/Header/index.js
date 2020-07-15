@@ -2,7 +2,9 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 
-import SEO from "../seo"
+import SEO from "../SEO"
+
+import { StyledHeader } from "./styled"
 
 const Header = ({ title }) => {
   const data = useStaticQuery(graphql`
@@ -19,12 +21,7 @@ const Header = ({ title }) => {
   return (
     <>
       <SEO title={title} />
-      <header
-        style={{
-          background: `rebeccapurple`,
-          marginBottom: `1.45rem`,
-        }}
-      >
+      <StyledHeader>
         <div
           style={{
             margin: `0 auto`,
@@ -44,7 +41,7 @@ const Header = ({ title }) => {
             </Link>
           </h1>
         </div>
-      </header>
+      </StyledHeader>
     </>
   )
 }
