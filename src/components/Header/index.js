@@ -4,7 +4,7 @@ import React from "react"
 
 import SEO from "../SEO"
 
-import { StyledHeader } from "./styled"
+import { StyledHeader, StyledHeader__Content } from "./styled"
 
 const Header = ({ title }) => {
   const data = useStaticQuery(graphql`
@@ -22,14 +22,8 @@ const Header = ({ title }) => {
     <>
       <SEO title={title} />
       <StyledHeader>
-        <div
-          style={{
-            margin: `0 auto`,
-            maxWidth: 960,
-            padding: `1.45rem 1.0875rem`,
-          }}
-        >
-          <h1 style={{ margin: 0 }}>
+        <StyledHeader__Content>
+          <h1>
             <Link
               to="/"
               style={{
@@ -40,7 +34,7 @@ const Header = ({ title }) => {
               {siteTitle}
             </Link>
           </h1>
-        </div>
+        </StyledHeader__Content>
       </StyledHeader>
     </>
   )

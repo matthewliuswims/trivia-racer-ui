@@ -6,6 +6,7 @@ import Layout from "../components/Layout"
 import Image from "../components/Image"
 
 // following styled component strucutre of https://stackoverflow.com/a/45391702/11303031
+// styled component naming convention - just go with approach 1 - https://dev.to/sandro_roth/how-to-structure-styled-components-with-react-and-ts-27pn
 
 const IndexPage = () => (
   <Layout title="Home">

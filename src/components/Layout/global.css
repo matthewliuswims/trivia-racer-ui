@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  /* https://stackoverflow.com/a/47880631/11303031 - add san francisco font */
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  color: red;
+}
+
+@media only screen and (max-width: 480px) {
+  html {
+    font-size: 100%;
+  }
+}
