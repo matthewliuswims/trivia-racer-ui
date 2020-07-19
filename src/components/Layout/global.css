@@ -18,6 +18,11 @@ h2 {
   color: red;
 }
 
+a,
+p {
+  color: #3e4e57;
+}
+
 @media only screen and (max-width: 480px) {
   html {
     font-size: 100%;

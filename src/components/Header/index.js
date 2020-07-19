@@ -1,10 +1,13 @@
-import { Link, useStaticQuery, graphql } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import PropTypes from "prop-types"
 
+// Components
+import SoundIcon from "../icons/SoundIcon"
 import SEO from "../SEO"
 
-import { StyledHeader, StyledHeader__Content } from "./styled"
+// Styled
+import { StyledHeader, StyledHeader__Link } from "./styled"
 
 const Header = ({ title }) => {
   const data = useStaticQuery(graphql`
@@ -22,19 +25,10 @@ const Header = ({ title }) => {
     <>
       <SEO title={title} />
       <StyledHeader>
-        <StyledHeader__Content>
-          <h1>
-            <Link
-              to="/"
-              style={{
-                color: `white`,
-                textDecoration: `none`,
-              }}
-            >
-              {siteTitle}
-            </Link>
-          </h1>
-        </StyledHeader__Content>
+        <SoundIcon />
+        <h1>
+          <StyledHeader__Link to="/">{siteTitle}</StyledHeader__Link>
+        </h1>
       </StyledHeader>
     </>
   )
