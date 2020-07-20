@@ -1,9 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
-import styled from "styled-components"
 
+// Components
 import Layout from "../components/Layout"
-import Image from "../components/Image"
+import GraduationImage from "../components/images/GraduationImage"
 
 // following styled component strucutre of https://stackoverflow.com/a/45391702/11303031
 // styled component naming convention - just go with approach 1 - https://dev.to/sandro_roth/how-to-structure-styled-components-with-react-and-ts-27pn
@@ -11,22 +11,14 @@ import Image from "../components/Image"
 
 const IndexPage = () => (
   <Layout title="Home">
-    <Header> Hi people </Header>
-    <h2> i is header 2 who gets red color from GlobalStyle</h2>
+    <h2> Answer Trivia Questions </h2>
+    <p> How many questions can you answer in 30 seconds?</p>
+    <GraduationImage />
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
     <Link to="/page-2/">Go to page 2</Link> <br />
     <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
   </Layout>
 )
-
-// @TODO change
-
-const Header = styled.h1`
-  color: blue;
-`
 
 export default IndexPage

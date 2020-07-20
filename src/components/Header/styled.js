@@ -8,7 +8,7 @@ export const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.45rem 2rem;
+  padding: 1rem;
 `
 
 export const StyledHeader__Link = styled(props => <Link {...props} />)`
