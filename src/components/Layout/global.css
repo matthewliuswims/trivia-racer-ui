@@ -16,6 +16,8 @@ h4 {
 
 a,
 p {
+  margin: 0;
+  padding: 0;
   color: #3e4e57;
 }
 

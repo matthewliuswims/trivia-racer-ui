@@ -4,11 +4,11 @@ import { Link } from "gatsby"
 
 export const StyledHeader = styled.header`
   background: ${props => props.theme.colorBlue};
-  margin-bottom: 1.45rem;
+  margin-bottom: 1.45em;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 1em;
 `
 
 export const StyledHeader__Link = styled(props => <Link {...props} />)`
