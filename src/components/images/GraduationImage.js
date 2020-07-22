@@ -3,16 +3,12 @@ import React from "react"
 // Components
 import { StyledSvg } from "./styled"
 
-const GraduationImage = ({ width = 413, height = 300 }) => {
+const GraduationImage = () => {
   return (
     <StyledSvg
       id="eb113788-f1f1-4c1f-be62-f1d0ea2e1eb6"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
-      // width="795.39431"
-      // height="574.03802"
-      // width={width}
-      // height={height}
       viewBox="0 0 795.39431 574.03802"
     >
       <defs>
@@ -25,9 +21,9 @@ const GraduationImage = ({ width = 413, height = 300 }) => {
           gradientTransform="translate(3217.53309 1009.65784) rotate(90)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="gray" stop-opacity="0.25" />
-          <stop offset="0.53514" stop-color="gray" stop-opacity="0.12" />
-          <stop offset="1" stop-color="gray" stop-opacity="0.1" />
+          <stop offset="0" stopColor="gray" stopOpacity="0.25" />
+          <stop offset="0.53514" stopColor="gray" stopOpacity="0.12" />
+          <stop offset="1" stopColor="gray" stopOpacity="0.1" />
         </linearGradient>
       </defs>
       <title>Graduation</title>

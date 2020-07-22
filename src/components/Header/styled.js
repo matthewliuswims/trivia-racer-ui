@@ -4,7 +4,6 @@ import { Link } from "gatsby"
 
 export const StyledHeader = styled.header`
   background: ${props => props.theme.colorBlue};
-  margin-bottom: 1.45em;
   display: flex;
   justify-content: center;
   align-items: center;
