@@ -10,7 +10,7 @@ export const StyledSection = styled.section`
 
 export const StyledSection__Blurb = styled.div`
   @media ${DESKTOP_MIN_WIDTH} {
-    margin-right: 5em;
+    margin-right: 4em;
   }
 `
 

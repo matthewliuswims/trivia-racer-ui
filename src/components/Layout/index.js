@@ -2,8 +2,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import { ThemeProvider } from "styled-components"
 
+// styles
 import Header from "../Header"
-import { StyledLayout } from "./styled"
+import { StyledLayout, StyledFooter } from "./styled"
 import theme from "./theme"
 
 // @TODO: cull this - need to see reference of other files eventually
@@ -15,11 +16,10 @@ const Layout = ({ children, title }) => {
       <Header title={title} />
       <StyledLayout>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
+        <StyledFooter>
+          Built with ❤️ &nbsp; - comments and feedback welcome to my email:
+          matthew [AT] matthewliu.net
+        </StyledFooter>
       </StyledLayout>
     </ThemeProvider>
   )

@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 
 // Components
 import Layout from "../components/Layout"
@@ -14,10 +13,6 @@ const IndexPage = () => (
   <Layout title="Home">
     <Introduction />
     <Blurbs />
-    {/* <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link> */}
   </Layout>
 )
 

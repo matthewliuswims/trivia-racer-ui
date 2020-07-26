@@ -6,9 +6,7 @@ export const StyledSvg = styled.svg`
   margin: 1em 0 3em 0;
 
   @media ${DESKTOP_MIN_WIDTH} {
-    margin-left: 3em;
-    height: 300px;
-    width: 413px;
+    margin-left: 6em;
     margin-bottom: 4em;
   }
 `
