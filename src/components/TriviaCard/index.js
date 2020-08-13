@@ -4,18 +4,20 @@ import React from "react"
 import {
   StyledCard,
   StyledCard__Description,
-  StyledCard__Bottom,
+  StyledCard__Top,
   StyledCard__Title,
 } from "./styled"
 
 const TriviaCard = ({ title, Icon, description, onClick }) => {
   return (
     <StyledCard onClick={onClick}>
-      <StyledCard__Description>{description}</StyledCard__Description>
-      <StyledCard__Bottom>
+      <StyledCard__Top>
         {<Icon />}
         <StyledCard__Title>{title}</StyledCard__Title>
-      </StyledCard__Bottom>
+      </StyledCard__Top>
+      <StyledCard__Description>
+        <p>{description}</p>
+      </StyledCard__Description>
     </StyledCard>
   )
 }

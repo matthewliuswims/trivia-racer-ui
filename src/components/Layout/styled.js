@@ -7,7 +7,7 @@ export const StyledLayout = styled.div`
 `
 
 export const StyledFooter = styled.footer`
-  padding: 2em 0.5em;
+  padding-top: 2em;
   line-height: 1.6;
 `
 
