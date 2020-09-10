@@ -18,7 +18,7 @@ const Introduction = () => {
           Answer Trivia Questions
         </StyledSection__Blurb__Heading>
         <StyledSection__Blurb__Paragraph>
-          How many questions can you answer in 30 seconds?
+          How many questions can you get right?
         </StyledSection__Blurb__Paragraph>
       </StyledSection__Blurb>
       <GraduationImage />

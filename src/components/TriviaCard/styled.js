@@ -1,7 +1,8 @@
 import styled from "styled-components"
+import { motion } from "framer-motion"
 import { DESKTOP_MIN_WIDTH } from "../constants"
 
-export const StyledCard = styled.section`
+export const StyledCard = styled(motion.section)`
   cursor: pointer;
   height: 160px;
   border-radius: 6px;

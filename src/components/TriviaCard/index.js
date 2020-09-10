@@ -10,7 +10,7 @@ import {
 
 const TriviaCard = ({ title, Icon, description, onClick }) => {
   return (
-    <StyledCard onClick={onClick}>
+    <StyledCard onClick={onClick} initial={{ scale: 0 }} animate={{ scale: 1 }}>
       <StyledCard__Top>
         {<Icon />}
         <StyledCard__Title>{title}</StyledCard__Title>

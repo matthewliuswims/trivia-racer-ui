@@ -1,9 +1,28 @@
-body {
+/* https://dev.to/hzburki/100-height-to-all-divs-gatsby-33nd make page stretch to 100% height */
+
+body,
+button,
+input,
+textarea {
   margin: 0;
   /* https://stackoverflow.com/a/47880631/11303031 - add san francisco font */
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
     Ubuntu;
+  position: relative;
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* html,
+body,
+#___gatsby,
+#gatsby-focus-wrapper {
+  height: 100%;
+} */
 
 h1,
 h2,
@@ -12,6 +31,22 @@ h4 {
   margin: 0;
   padding: 0;
   color: #3e4e57;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  border: none;
+  overflow: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+button:focus {
+  outline: none;
 }
 
 a,

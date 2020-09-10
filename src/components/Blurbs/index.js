@@ -29,7 +29,7 @@ const Blurbs = () => {
         description="On what day was Julius Caesar Assasinated?"
       />
       <TriviaCard
-        onClick={() => onClick("Science")}
+        onClick={() => onClick("science")}
         title="Science"
         Icon={Science}
         description="In what organ would you find the Cornea?"

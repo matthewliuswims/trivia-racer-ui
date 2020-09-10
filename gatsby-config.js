@@ -14,6 +14,10 @@
  * transformer plugins transform the raw content brought by source plugins. (e.g. transformer-remark)
  */
 
+require("dotenv").config({
+  path: `.env.production`,
+})
+
 // @TODO: delete all the plugins i won't need
 module.exports = {
   siteMetadata: {
