@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useReducer } from "react"
+import React, { useState, useEffect } from "react"
+import { connect } from "react-redux"
 import { navigate } from "gatsby"
 import queryString from "query-string"
 
@@ -10,26 +11,36 @@ import ButtonPrimary from "../components/ButtonPrimary"
 import GameQuestion from "../components/GameQuestion"
 import Loading from "../components/Loading"
 
+// Selectors
+import {
+  selectQuestion,
+  selectQuestions,
+  selectAnswers,
+  selectIndexQuestion,
+} from "../state/game"
+
 // Helpers
 import { request } from "../helpers/request"
 
-// State
-import { reducer, init } from "../state/game"
 import * as c from "../state/game_constants"
 
 // @TODO: have versioning for sessionStorage of questions and maybe version?
+const GamePage = ({
+  location,
 
-const GamePage = ({ location }) => {
+  questions,
+  answers,
+  indexQuestion,
+  question,
+  dispatch,
+}) => {
   const { state: locationState, search } = location
   const fromHome = locationState && locationState.fromHome
 
-  const [state, dispatch] = useReducer(reducer, {}, init)
   const category = queryString.parse(search).category
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const { questions, answers, indexQuestion, question } = state
-  // @TODO: fix bug with not being able to navigate to the game page directly
   useEffect(() => {
     async function fetchData() {
       // refreshing, and questions exist, don't fetch new ones
@@ -67,7 +78,7 @@ const GamePage = ({ location }) => {
     )
   }
 
-  if (error || !question || (!question.id && question.id !== 0)) {
+  if (error) {
     return (
       <Layout title="Game">
         <h3> 😬 &nbsp;oops. There was an error, go back to the home page </h3>
@@ -80,10 +91,8 @@ const GamePage = ({ location }) => {
     )
   }
 
-  console.log("answers are", answers)
-
   const answerOnClick = answer => {
-    const correctID = question.correct_answer.id
+    const correctID = question.answer_correct_id
     if (answer.id === correctID) {
       dispatch({ type: c.GAME_ANSWER_CORRECT, correctID })
       setTimeout(() => {
@@ -93,15 +102,25 @@ const GamePage = ({ location }) => {
       }, 2500)
       console.log("correct answer was invoked")
     }
-    // else was incorrect answer and do something
+    // @TODO: else was incorrect answer and do something
   }
+  console.log("answers here are", answers)
   return (
     <Layout title="Game">
       <ScoreCurrent score={indexQuestion} />
-      <GameQuestion question={question.name} />
+      <GameQuestion question={question && question.name} />
       <GameAnswers answers={answers} onClick={answerOnClick} />
     </Layout>
   )
 }
 
-export default GamePage
+const mapStateToProps = state => {
+  return {
+    question: selectQuestion(state),
+    questions: selectQuestions(state),
+    answers: selectAnswers(state),
+    indexQuestion: selectIndexQuestion(state),
+  }
+}
+
+export default connect(mapStateToProps)(GamePage)

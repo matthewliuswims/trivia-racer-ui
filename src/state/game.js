@@ -1,23 +1,35 @@
 import * as c from "./game_constants"
 
-// @TODO: need to fix issue with putting correct answer always as the first option
+export const initialState = {
+  questions: [],
+  question: undefined,
+  indexQuestion: 0,
+  answers: [],
+}
 
 const handlers = {
   [c.GAME_QUESTIONS_SET]: (state, action) => {
     const questions = action.questions.map(question => {
-      const questionNew = { ...question }
-      questionNew.correct_answer.animateState = "default"
-      questionNew.incorrect_answers.forEach(answer => {
-        answer.animateState = "default"
-      })
-      return questionNew
+      const answers = question.answers.map(answer => ({
+        ...answer,
+        animateState: "default",
+      }))
+
+      return {
+        ...question,
+        answers,
+      }
     })
+
     sessionStorage.setItem("questions", JSON.stringify(questions))
-    const indexQuestion = "0"
-    sessionStorage.setItem("indexQuestion", indexQuestion)
+
+    const indexQuestion = 0
+    sessionStorage.setItem("indexQuestion", JSON.stringify(indexQuestion))
+
     // set the answers too
-    const question = questions[state.indexQuestion]
-    const answers = [question.correct_answer, ...question.incorrect_answers]
+    const question = questions[indexQuestion]
+
+    const answers = question ? question.answers : []
     return { ...state, questions, answers, question, indexQuestion }
   },
   [c.GAME_ANSWER_CORRECT]: (state, action) => {
@@ -26,6 +38,7 @@ const handlers = {
 
     // update sessionStorage, but don't update index state (quite yet)
     sessionStorage.setItem("indexQuestion", JSON.stringify(indexUpdated))
+
     const answersAnimated = state.answers.map(answer => {
       if (answer.id === correctID) {
         return {
@@ -38,15 +51,15 @@ const handlers = {
         animateState: "unchosen",
       }
     })
+
     return { ...state, answers: answersAnimated }
   },
 
   [c.GAME_QUESTION_NEW]: state => {
     const indexUpdated = state.indexQuestion + 1
     const newQuestion = state.questions[indexUpdated]
-    const answers = newQuestion
-      ? [newQuestion.correct_answer, ...newQuestion.incorrect_answers]
-      : []
+    const answers = newQuestion ? newQuestion.answers : []
+
     return {
       ...state,
       question: newQuestion,
@@ -55,22 +68,15 @@ const handlers = {
     }
   },
 }
-export function reducer(state, action) {
+
+export const selectQuestion = ({ game }) => game.question
+export const selectQuestions = ({ game }) => game.questions
+export const selectAnswers = ({ game }) => game.answers
+export const selectIndexQuestion = ({ game }) => game.indexQuestion
+
+function reducer(state = initialState, action) {
   const handler = handlers[action.type]
   return handler ? handler(state, action) : state
 }
 
-export function init() {
-  const questions = JSON.parse(sessionStorage.getItem("questions") || "[]")
-  const indexQuestion = JSON.parse(sessionStorage.getItem("indexQuestion")) || 0
-  const question = questions[indexQuestion] // will be undefined if out of index
-  const answers = question
-    ? [question.correct_answer, ...question.incorrect_answers]
-    : []
-  return {
-    questions,
-    question,
-    answers,
-    indexQuestion,
-  }
-}
+export default reducer
