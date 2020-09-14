@@ -5,4 +5,5 @@ export const StyledGameQuestion = styled.p`
   color: ${props => props.theme.darkGrey};
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  text-align: center;
 `

@@ -1,10 +1,11 @@
 import React from "react"
+import he from "he"
 
 // Styled
 import { StyledButtonAnswer } from "./styled"
 
 const variants = {
-  correct: { scale: [1, 1.25, 1] },
+  correct: { scale: [1, 1.1, 1] },
   default: { scale: 1 },
 }
 
@@ -14,9 +15,9 @@ const ButtonAnswer = ({ answer = {}, onClick }) => {
       onClick={() => onClick(answer)}
       animate={answer.animateState}
       variants={variants}
-      transition={{ duration: 1.25 }}
+      transition={{ duration: 0.75 }}
     >
-      {answer.name}
+      {he.decode(answer.name)}
     </StyledButtonAnswer>
   )
 }

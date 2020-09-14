@@ -4,4 +4,5 @@ export default {
   colorGrey1: "#979797",
   darkGrey: "#001429",
   purple: "#5B3CD9",
+  green: "#417505",
 }
