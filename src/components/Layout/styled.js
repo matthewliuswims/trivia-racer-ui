@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const StyledLayout = styled.main`
   padding: 2em;
   margin: 0 auto;
-  max-width: 900px;
+  max-width: ${props => props.maxWidth};
   min-height: calc(100vh - 150px);
 `
 // min-height above is from https://css-tricks.com/couple-takes-sticky-footer/, calc option to have sticky footer

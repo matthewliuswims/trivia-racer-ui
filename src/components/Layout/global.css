@@ -33,6 +33,11 @@ h4 {
   color: #3e4e57;
 }
 
+button,
+label {
+  display: block;
+}
+
 button {
   margin: 0;
   padding: 0;

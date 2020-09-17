@@ -1,11 +1,11 @@
 import React from "react"
 
 // Components
-import { StyledSvg } from "./styled"
+import { StyledSvgGraduation } from "./styled"
 
 const GraduationImage = () => {
   return (
-    <StyledSvg
+    <StyledSvgGraduation
       id="eb113788-f1f1-4c1f-be62-f1d0ea2e1eb6"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +207,7 @@ const GraduationImage = () => {
         fill="#006fbb"
       />
       <ellipse cx="553.39431" cy="272" rx="29" ry="20" fill="#f5f5f5" />
-    </StyledSvg>
+    </StyledSvgGraduation>
   )
 }
 

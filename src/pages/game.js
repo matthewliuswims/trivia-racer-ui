@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { connect } from "react-redux"
-import { navigate } from "gatsby"
 import queryString from "query-string"
+import "react-circular-progressbar/dist/styles.css"
+import {
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from "react-circular-progressbar"
 
 // Components
+import PartyingImage from "../components/images/PartyingImage"
+import Form from "../components/Form"
+import Error from "../components/Error"
 import Layout from "../components/Layout"
 import ScoreCurrent from "../components/ScoreCurrent"
 import GameAnswers from "../components/GameAnswers"
@@ -17,12 +24,15 @@ import {
   selectQuestions,
   selectAnswers,
   selectIndexQuestion,
+  selectScore,
 } from "../state/game"
 
 // Helpers
 import { request } from "../helpers/request"
 
+// Constants
 import * as c from "../state/game_constants"
+import theme from "../components/Layout/theme"
 
 // @TODO: have versioning for sessionStorage of questions and maybe version?
 const GamePage = ({
@@ -33,19 +43,25 @@ const GamePage = ({
   indexQuestion,
   question,
   dispatch,
+  score,
 }) => {
-  const { state: locationState, search } = location
-  const fromHome = locationState && locationState.fromHome
+  const intervalRef = useRef()
+  const { search } = location
 
   const category = queryString.parse(search).category
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    async function fetchData() {
-      // refreshing, and questions exist, don't fetch new ones
-      if (!fromHome && questions.length > 0) return
+  const initialTime = 60
+  const [time, setTime] = useState(initialTime)
+  const noTime = time <= 0
 
+  useEffect(() => {
+    if (noTime) clearInterval(intervalRef.current)
+  }, [time])
+
+  useEffect(() => {
+    async function fetchQuestions() {
       setLoading(true)
       try {
         // const response = await request(`/v1/questions/?category=${category}`)
@@ -55,59 +71,73 @@ const GamePage = ({
         if (!response.ok) throw Error(resp.statusText || resp.message)
         const questionsResponse = await response.json()
         dispatch({ type: c.GAME_QUESTIONS_SET, questions: questionsResponse })
+        intervalRef.current = setInterval(() => {
+          setTime(time => time - 1)
+        }, 1000)
       } catch (err) {
+        console.error("error is", err)
         setError(err)
       } finally {
         setLoading(false)
       }
     }
-    fetchData()
+
+    fetchQuestions()
+    return () => clearInterval(intervalRef.current)
   }, [])
 
-  useEffect(() => {
-    if (indexQuestion > 0 && indexQuestion >= questions.length) {
-      navigate(`/game-end`)
-    }
-  }, [indexQuestion, questions])
-
   if (loading) {
-    return (
-      <Layout title="Game">
-        <Loading />
-      </Layout>
-    )
+    return <Loading />
   }
 
   if (error) {
+    return <Error />
+  }
+
+  const gameEnded =
+    noTime || (indexQuestion > 0 && indexQuestion >= questions.length)
+  if (gameEnded) {
     return (
-      <Layout title="Game">
-        <h3> 😬 &nbsp;oops. There was an error, go back to the home page </h3>
-        <ButtonPrimary
-          name="Home Page"
-          onClick={() => navigate(`/`)}
-          marginTop
-        />
+      <Layout title="Game End" maxWidth={"500px"}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <PartyingImage />
+        </div>
+        <h3 style={{ marginBottom: "0.5em", textAlign: "center" }}>
+          Congragulations, your score on Trivia Racer is:
+        </h3>
+        <ScoreCurrent display={score} />
+        <Form />
+        <ButtonPrimary name="Try Again" marginTop />
+        <ButtonPrimary name="Change Topic" marginTop />
       </Layout>
     )
   }
 
   const answerOnClick = answer => {
-    const correctID = question.answer_correct_id
-    if (answer.id === correctID) {
-      dispatch({ type: c.GAME_ANSWER_CORRECT, correctID })
-      setTimeout(() => {
-        // wait a little bit to update the question and answers in the UI
-        // if the user were to refresh the page before the timeout, session storage will take care of that
-        dispatch({ type: c.GAME_QUESTION_NEW, correctID })
-      }, 2500)
-      console.log("correct answer was invoked")
-    }
+    dispatch({
+      type: c.GAME_ANSWER_CHOICE,
+      chosenID: answer.id,
+      correctID: question.answer_correct_id,
+      questionID: question.id,
+    })
+    setTimeout(() => {
+      // wait a little bit to update the question and answers in the UI
+      // if the user were to refresh the page before the timeout, session storage will take care of that
+      dispatch({ type: c.GAME_QUESTION_NEW })
+    }, 2500)
     // @TODO: else was incorrect answer and do something
   }
-  console.log("answers here are", answers)
+
   return (
     <Layout title="Game">
-      <ScoreCurrent score={indexQuestion} />
+      <div style={{ height: "5em", width: "5em", margin: "auto" }}>
+        <CircularProgressbarWithChildren
+          value={(time / initialTime) * 100}
+          styles={buildStyles({ pathColor: theme.colorBlue })}
+        >
+          <ScoreCurrent display={score} />
+        </CircularProgressbarWithChildren>
+      </div>
       <GameQuestion question={question && question.name} />
       <GameAnswers answers={answers} onClick={answerOnClick} />
     </Layout>
@@ -120,6 +150,7 @@ const mapStateToProps = state => {
     questions: selectQuestions(state),
     answers: selectAnswers(state),
     indexQuestion: selectIndexQuestion(state),
+    score: selectScore(state),
   }
 }
 

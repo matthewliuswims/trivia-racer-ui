@@ -11,12 +11,12 @@ import theme from "./theme"
 // @TODO: cull this - need to see reference of other files eventually
 import "./global.css"
 
-const Layout = ({ children, title }) => {
+const Layout = ({ children, title = "Trivia Racer", maxWidth = "900px" }) => {
   return (
     <>
       <ThemeProvider theme={theme}>
         <Header title={title} />
-        <StyledLayout>{children}</StyledLayout>
+        <StyledLayout maxWidth={maxWidth}>{children}</StyledLayout>
         <Wave
           fill="#006FBB"
           style={{

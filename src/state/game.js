@@ -5,6 +5,8 @@ export const initialState = {
   question: undefined,
   indexQuestion: 0,
   answers: [],
+  score: 0,
+  questionsAnswered: [],
 }
 
 const handlers = {
@@ -21,29 +23,39 @@ const handlers = {
       }
     })
 
-    sessionStorage.setItem("questions", JSON.stringify(questions))
-
-    const indexQuestion = 0
-    sessionStorage.setItem("indexQuestion", JSON.stringify(indexQuestion))
-
     // set the answers too
-    const question = questions[indexQuestion]
+    const question = questions[initialState.indexQuestion]
+    const answers = question.answers
 
-    const answers = question ? question.answers : []
-    return { ...state, questions, answers, question, indexQuestion }
+    return {
+      ...initialState,
+      questions,
+      answers,
+      question,
+    }
   },
-  [c.GAME_ANSWER_CORRECT]: (state, action) => {
-    const { correctID } = action
-    const indexUpdated = state.indexQuestion + 1
-
-    // update sessionStorage, but don't update index state (quite yet)
-    sessionStorage.setItem("indexQuestion", JSON.stringify(indexUpdated))
+  [c.GAME_ANSWER_CHOICE]: (state, action) => {
+    const { correctID, questionID, chosenID } = action
+    const scoreUpdated =
+      chosenID === correctID
+        ? state.score + 1
+        : state.score === 0
+        ? 0
+        : state.score - 1
 
     const answersAnimated = state.answers.map(answer => {
+      // always show the correct answer
       if (answer.id === correctID) {
         return {
           ...answer,
           animateState: "correct",
+        }
+      }
+      // incorrect answer was chosen
+      if (answer.id === chosenID) {
+        return {
+          ...answer,
+          animateState: "incorrect",
         }
       }
       return {
@@ -52,7 +64,17 @@ const handlers = {
       }
     })
 
-    return { ...state, answers: answersAnimated }
+    const questionsAnswered = [
+      ...state.questionsAnswered,
+      { questionID, answerID: chosenID },
+    ]
+
+    return {
+      ...state,
+      answers: answersAnimated,
+      score: scoreUpdated,
+      questionsAnswered,
+    }
   },
 
   [c.GAME_QUESTION_NEW]: state => {
@@ -69,6 +91,7 @@ const handlers = {
   },
 }
 
+export const selectScore = ({ game }) => game.score
 export const selectQuestion = ({ game }) => game.question
 export const selectQuestions = ({ game }) => game.questions
 export const selectAnswers = ({ game }) => game.answers

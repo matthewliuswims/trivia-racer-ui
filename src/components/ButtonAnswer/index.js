@@ -6,7 +6,8 @@ import { StyledButtonAnswer } from "./styled"
 
 const variants = {
   correct: { scale: [1, 1.1, 1] },
-  default: { scale: 1 },
+  unchosen: { scale: 1 },
+  incorrect: { scale: 1 },
 }
 
 const ButtonAnswer = ({ answer = {}, onClick }) => {

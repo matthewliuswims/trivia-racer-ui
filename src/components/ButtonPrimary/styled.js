@@ -10,7 +10,7 @@ export const StyledButtonPrimary = styled(motion.button)`
   border-radius: 20px;
   width: 100%;
   height: 3em;
-  margin-top: ${props => (props.marginTop ? "2em" : "0")};
+  margin-top: ${props => (props.marginTop ? "1em" : "0")};
   box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
 
   &:hover {

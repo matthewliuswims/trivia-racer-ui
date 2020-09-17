@@ -6,7 +6,7 @@ export const StyledCard = styled(motion.section)`
   cursor: pointer;
   height: 160px;
   border-radius: 6px;
-  border: 1px solid ${props => props.theme.colorGrey1};
+  border: 1px solid ${props => props.theme.lightGrey};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

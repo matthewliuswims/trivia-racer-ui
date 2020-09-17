@@ -14,7 +14,7 @@ import { StyledFooter } from "../components/Layout/styled"
 
 const IndexPage = () => {
   return (
-    <Layout title="Home" displayFooter={true}>
+    <Layout displayFooter={true}>
       <Introduction />
       <Blurbs />
       <StyledFooter>
