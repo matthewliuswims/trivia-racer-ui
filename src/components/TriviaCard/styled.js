@@ -31,7 +31,7 @@ export const StyledCard__Description = styled.div`
 
 export const StyledCard__Title = styled.p`
   color: white;
-  margin-left: 0.4em;
+  margin-left: 0.5em;
 `
 
 export const StyledCard__Top = styled.div`

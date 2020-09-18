@@ -34,7 +34,6 @@ import { request } from "../helpers/request"
 import * as c from "../state/game_constants"
 import theme from "../components/Layout/theme"
 
-// @TODO: have versioning for sessionStorage of questions and maybe version?
 const GamePage = ({
   location,
 

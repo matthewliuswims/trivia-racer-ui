@@ -5,9 +5,8 @@ button,
 input,
 textarea {
   margin: 0;
-  /* https://stackoverflow.com/a/47880631/11303031 - add san francisco font */
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu;
+  font-family: "Roboto", -apple-system, "Segoe UI", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
   position: relative;
 }
 

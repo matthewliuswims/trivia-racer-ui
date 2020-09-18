@@ -1,11 +1,15 @@
 import React, { useState } from "react"
 
 // Components
+import FormControl from "@material-ui/core/FormControl"
+import InputLabel from "@material-ui/core/InputLabel"
+import OutlinedInput from "@material-ui/core/OutlinedInput"
 import ButtonSecondary from "../ButtonSecondary"
 
 // Styled
-import { StyledInput, StyledForm, StyledLabel } from "./styled"
+import { StyledForm } from "./styled"
 
+// @TODO Use material ui here.
 const Form = () => {
   const [value, setValue] = useState("")
 
@@ -20,21 +24,26 @@ const Form = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <StyledLabel htmlFor="initials">Initials:</StyledLabel>
-      <StyledInput
-        type="text"
-        id="initials"
-        name="initials"
-        required
-        onChange={handleChange}
-        pattern="[a-zA-Z0-9]+"
-        title="Initials can only be letters or numbers"
-        placeholder="up to three letters!"
-        minLength="1"
-        maxLength="3"
-        value={value}
-      />
-      <ButtonSecondary name="Save" />
+      <FormControl variant="outlined">
+        <InputLabel htmlFor="initials">Initials</InputLabel>
+        <OutlinedInput
+          id="initials"
+          name="initials"
+          value={value}
+          onChange={handleChange}
+          label="Initials"
+          inputProps={{
+            maxLength: 3,
+            minLength: 1,
+            placeholder: "up to three letters!",
+            title: "Initials can only be letters or numbers",
+            pattern: "[a-zA-Z0-9]+",
+          }}
+        />
+      </FormControl>
+      <ButtonSecondary type="submit" $marginTopSmall variant="contained">
+        Save
+      </ButtonSecondary>
     </StyledForm>
   )
 }
