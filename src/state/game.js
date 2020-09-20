@@ -10,7 +10,7 @@ export const initialState = {
 }
 
 const handlers = {
-  [c.GAME_QUESTIONS_SET]: (state, action) => {
+  [c.GAME_QUESTIONS_SET]: (_, action) => {
     const questions = action.questions.map(question => {
       const answers = question.answers.map(answer => ({
         ...answer,

@@ -48,12 +48,12 @@ const GamePage = ({
   const { search } = location
 
   const category = queryString.parse(search).category
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   const initialTime = 60
   const [time, setTime] = useState(initialTime)
-  const noTime = time <= 0
+  const noTime = time <= -2 // give a little buffer to help user XP
 
   useEffect(() => {
     if (noTime) clearInterval(intervalRef.current)
@@ -61,15 +61,12 @@ const GamePage = ({
 
   useEffect(() => {
     async function fetchQuestions() {
-      setLoading(true)
       try {
         // const response = await request(`/v1/questions/?category=${category}`)
-        const response = await request(
-          `/v1/questions/?category=${category}&count=2`
-        )
-        if (!response.ok) throw Error(resp.statusText || resp.message)
-        const questionsResponse = await response.json()
-        dispatch({ type: c.GAME_QUESTIONS_SET, questions: questionsResponse })
+        const response = await request({
+          relativeUrl: `/v1/questions/?category=${category}&count=2`,
+        })
+        dispatch({ type: c.GAME_QUESTIONS_SET, questions: response })
         intervalRef.current = setInterval(() => {
           setTime(time => time - 1)
         }, 1000)

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { DESKTOP_MIN_WIDTH } from "../constants"
 
 export const StyledLayout = styled.main`
   padding: 2em;
@@ -9,12 +10,11 @@ export const StyledLayout = styled.main`
 // min-height above is from https://css-tricks.com/couple-takes-sticky-footer/, calc option to have sticky footer
 
 export const StyledFooter = styled.footer`
-  padding-top: 1em;
-  padding-bottom: 1em;
+  margin-top: 4em;
+  margin-bottom: 1em;
   line-height: 1.6;
-`
 
-//
-// export const StyledMain = styled.main`
-//   min-height: calc(100vh - 100px);
-// `
+  @media ${DESKTOP_MIN_WIDTH} {
+    margin-top: 6em;
+  }
+`

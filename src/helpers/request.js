@@ -1,7 +1,7 @@
 /**
  * @param {string} relativeUrl @example /v1/token/
  */
-export const request = async relativeUrl => {
+export const request = async ({ relativeUrl, needToken = true }) => {
   const headers = {
     "Content-Type": "application/json",
   }
@@ -9,7 +9,7 @@ export const request = async relativeUrl => {
   const url = `${process.env.GATSBY_API_HOST}${relativeUrl}`
   let token = sessionStorage.getItem("token")
 
-  if (!token) {
+  if (!token && needToken) {
     const response = await fetch(`${process.env.GATSBY_API_HOST}/v1/token/`, {
       headers,
     })
@@ -20,7 +20,12 @@ export const request = async relativeUrl => {
 
   headers["Authorization"] = `Bearer ${token}`
 
-  return fetch(url, {
+  const response = await fetch(url, {
     headers,
   })
+
+  if (!response.ok)
+    throw Error(resp.statusText || resp.message || "There was a problem")
+  const responseJSON = await response.json()
+  return responseJSON
 }

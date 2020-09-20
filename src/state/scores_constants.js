@@ -1,0 +1,2 @@
+export const SCORES_TOP_SET = "SCORES_TOP_SET"
+export const SCORES_RECENT_SET = "SCORES_RECENT_SET"
