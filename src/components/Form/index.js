@@ -10,20 +10,20 @@ import ButtonSecondary from "../ButtonSecondary"
 import { StyledForm } from "./styled"
 
 // @TODO Use material ui here.
-const Form = () => {
+const Form = ({ saveScore }) => {
   const [value, setValue] = useState("")
 
   const handleChange = event => {
     setValue(event.target.value)
   }
 
-  const handleSubmit = event => {
-    alert("value was submitted: " + value)
-    event.preventDefault()
-  }
-
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm
+      onSubmit={event => {
+        event.preventDefault()
+        saveScore(value)
+      }}
+    >
       <FormControl variant="outlined">
         <InputLabel htmlFor="initials">Initials</InputLabel>
         <OutlinedInput

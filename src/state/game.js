@@ -94,6 +94,7 @@ const handlers = {
 export const selectScore = ({ game }) => game.score
 export const selectQuestion = ({ game }) => game.question
 export const selectQuestions = ({ game }) => game.questions
+export const selectQuestionsAnswered = ({ game }) => game.questionsAnswered
 export const selectAnswers = ({ game }) => game.answers
 export const selectIndexQuestion = ({ game }) => game.indexQuestion
 

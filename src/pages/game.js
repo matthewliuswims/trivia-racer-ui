@@ -17,6 +17,7 @@ import GameAnswers from "../components/GameAnswers"
 import ButtonPrimary from "../components/ButtonPrimary"
 import GameQuestion from "../components/GameQuestion"
 import Loading from "../components/Loading"
+import Scores from "../components/Scores"
 
 // Selectors
 import {
@@ -25,31 +26,42 @@ import {
   selectAnswers,
   selectIndexQuestion,
   selectScore,
+  selectQuestionsAnswered,
 } from "../state/game"
 
+import { selectScoresRecent, selectScoresTop } from "../state/scores"
+
 // Helpers
-import { request } from "../helpers/request"
+import { request, setNewToken } from "../helpers/request"
 
 // Constants
 import * as c from "../state/game_constants"
+import * as sc from "../state/scores_constants"
 import theme from "../components/Layout/theme"
 
 const GamePage = ({
   location,
 
   questions,
+  questionsAnswered,
   answers,
   indexQuestion,
   question,
   dispatch,
   score,
+
+  scoresRecent,
+  scoresTop,
 }) => {
   const intervalRef = useRef()
   const { search } = location
 
   const category = queryString.parse(search).category
-  const [loading, setLoading] = useState(true)
+  const [loadingQuestions, setLoadingQuestions] = useState(true)
+  const [loadingScores, setLoadingScores] = useState(false)
   const [error, setError] = useState(null)
+
+  const [savedScore, setSavedScore] = useState(false)
 
   const initialTime = 60
   const [time, setTime] = useState(initialTime)
@@ -58,6 +70,32 @@ const GamePage = ({
   useEffect(() => {
     if (noTime) clearInterval(intervalRef.current)
   }, [time])
+
+  useEffect(() => {
+    async function fetchScores() {
+      try {
+        const responses = await Promise.all([
+          request({
+            relativeUrl: `/v1/gamesessions/?top=true`,
+            needToken: false,
+          }),
+          request({
+            relativeUrl: `/v1/gamesessions/`,
+            needToken: false,
+          }),
+        ])
+        const [scoresTop, scoresRecent] = responses
+        dispatch({ type: sc.SCORES_TOP_SET, scoresTop })
+        dispatch({ type: sc.SCORES_RECENT_SET, scoresRecent })
+      } catch (err) {
+        console.error("err is", err)
+        setError(err)
+      } finally {
+        setLoadingScores(false)
+      }
+    }
+    fetchScores()
+  }, [JSON.stringify(scoresRecent), JSON.stringify(scoresTop)])
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -74,7 +112,7 @@ const GamePage = ({
         console.error("error is", err)
         setError(err)
       } finally {
-        setLoading(false)
+        setLoadingQuestions(false)
       }
     }
 
@@ -82,7 +120,7 @@ const GamePage = ({
     return () => clearInterval(intervalRef.current)
   }, [])
 
-  if (loading) {
+  if (loadingQuestions) {
     return <Loading />
   }
 
@@ -90,21 +128,82 @@ const GamePage = ({
     return <Error />
   }
 
+  const saveScore = value => {
+    async function helper() {
+      try {
+        await request({
+          relativeUrl: `/v1/gamesessions/`,
+          options: {
+            method: "POST",
+            body: JSON.stringify({
+              name: value,
+              score,
+              questions: questionsAnswered,
+            }),
+          },
+        })
+        await setNewToken()
+      } catch (err) {
+        console.error("save name err is", err)
+        alert("Could not save that name. Please try a different name")
+        return
+      }
+
+      try {
+        setLoadingScores(true)
+        const responses = await Promise.all([
+          request({
+            relativeUrl: `/v1/gamesessions/?top=true`,
+            needToken: false,
+          }),
+          request({
+            relativeUrl: `/v1/gamesessions/`,
+            needToken: false,
+          }),
+        ])
+        const [scoresTop, scoresRecent] = responses
+        dispatch({ type: sc.SCORES_TOP_SET, scoresTop })
+        dispatch({ type: sc.SCORES_RECENT_SET, scoresRecent })
+        setSavedScore(true)
+      } catch (err) {
+        console.error("save session err is", err)
+        setError(err)
+      } finally {
+        setLoadingScores(false)
+      }
+    }
+
+    helper()
+  }
+
   const gameEnded =
     noTime || (indexQuestion > 0 && indexQuestion >= questions.length)
   if (gameEnded) {
     return (
       <Layout title="Game End" maxWidth={"500px"}>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <PartyingImage />
-        </div>
-        <h3 style={{ marginBottom: "0.5em", textAlign: "center" }}>
-          Congragulations, your score on Trivia Racer is:
-        </h3>
-        <ScoreCurrent display={score} />
-        <Form />
+        {savedScore ? (
+          <h3 style={{ marginBottom: "0.5em", textAlign: "center" }}>
+            Score Saved Below
+          </h3>
+        ) : (
+          <>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <PartyingImage />
+            </div>
+            <h3 style={{ marginBottom: "0.5em", textAlign: "center" }}>
+              Congragulations, your score on Trivia Racer is:
+            </h3>
+            <ScoreCurrent display={score} />
+            <Form saveScore={saveScore} />
+          </>
+        )}
         <ButtonPrimary name="Try Again" marginTop />
         <ButtonPrimary name="Change Topic" marginTop />
+        <Scores
+          scoresTop={scoresTop}
+          scoresRecent={scoresRecent}
+          loadingScores={loadingScores}
+        />
       </Layout>
     )
   }
@@ -147,6 +246,9 @@ const mapStateToProps = state => {
     answers: selectAnswers(state),
     indexQuestion: selectIndexQuestion(state),
     score: selectScore(state),
+    scoresRecent: selectScoresRecent(state),
+    scoresTop: selectScoresTop(state),
+    questionsAnswered: selectQuestionsAnswered(state),
   }
 }
 
