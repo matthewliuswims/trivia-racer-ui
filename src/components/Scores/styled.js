@@ -2,10 +2,12 @@ import styled from "styled-components"
 import { DESKTOP_MIN_WIDTH } from "../constants"
 
 export const StyledScores = styled.section`
-  margin-top: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   @media ${DESKTOP_MIN_WIDTH} {
-    display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
   }
 `
@@ -16,6 +18,7 @@ export const StyledScores__Content = styled.div`
   margin-top: 3em;
 
   @media ${DESKTOP_MIN_WIDTH} {
+    text-align: center;
     margin: 40px;
   }
 `

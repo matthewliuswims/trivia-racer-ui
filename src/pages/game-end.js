@@ -128,21 +128,29 @@ const GameEndPage = ({
   return (
     <Layout title="Game End">
       <div style={{ maxWidth: "500px", margin: "auto" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <PartyingImage />
+        </div>
         {savedScore ? (
-          <h3 style={{ marginBottom: "0.5em", textAlign: "center" }}>
-            Score Saved Below
-          </h3>
+          <div
+            style={{
+              marginBottom: "0.5em",
+              height: "200px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h3> Very nice! Your Score was Saved (see below)</h3>
+          </div>
         ) : (
-          <>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <PartyingImage />
-            </div>
+          <div style={{ height: "200px" }}>
             <h3 style={{ marginBottom: "0.5em", textAlign: "center" }}>
               Congragulations, your score on Trivia Racer is:
             </h3>
             <ScoreCurrent display={score} />
             <Form saveScore={saveScore} />
-          </>
+          </div>
         )}
         <ButtonPrimary name="Try Again" marginTop />
         <ButtonPrimary name="Change Topic" marginTop />
