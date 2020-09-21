@@ -89,6 +89,10 @@ const handlers = {
       answers,
     }
   },
+
+  [c.GAME_RESET]: () => {
+    return initialState
+  },
 }
 
 export const selectScore = ({ game }) => game.score

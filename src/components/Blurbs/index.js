@@ -12,9 +12,7 @@ import Science from "../icons/Science"
 
 const Blurbs = () => {
   const onClick = category => {
-    navigate(`/game?category=${category}`, {
-      state: { fromHome: true },
-    })
+    navigate(`/game?category=${category}`)
   }
   return (
     <StyledBlurbs>
