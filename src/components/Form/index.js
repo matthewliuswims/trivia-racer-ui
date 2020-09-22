@@ -27,6 +27,7 @@ const Form = ({ saveScore }) => {
       <FormControl variant="outlined">
         <InputLabel htmlFor="initials">Initials</InputLabel>
         <OutlinedInput
+          style={{ borderRadius: "5px 0 0 5px" }}
           id="initials"
           name="initials"
           value={value}
@@ -41,7 +42,7 @@ const Form = ({ saveScore }) => {
           }}
         />
       </FormControl>
-      <ButtonSecondary type="submit" $marginTopSmall variant="contained">
+      <ButtonSecondary type="submit" variant="contained">
         Save
       </ButtonSecondary>
     </StyledForm>

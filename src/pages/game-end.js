@@ -4,12 +4,12 @@ import { connect } from "react-redux"
 
 // Components
 import PartyingImage from "../components/images/PartyingImage"
-import Form from "../components/Form"
 import Error from "../components/Error"
 import Layout from "../components/Layout"
-import ScoreCurrent from "../components/ScoreCurrent"
 import ButtonPrimary from "../components/ButtonPrimary"
-import Scores from "../components/Scores"
+import Scores from "../components/scores/Scores"
+import ScoreSaved from "../components/scores/ScoreSaved"
+import ScoreEnding from "../components/scores/ScoreEnding"
 
 // Selectors
 import { selectQuestionsAnswered, selectScore } from "../state/game"
@@ -132,25 +132,9 @@ const GameEndPage = ({
           <PartyingImage />
         </div>
         {savedScore ? (
-          <div
-            style={{
-              marginBottom: "0.5em",
-              height: "200px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <h3> Very nice! Your Score was Saved (see below)</h3>
-          </div>
+          <ScoreSaved />
         ) : (
-          <div style={{ height: "200px" }}>
-            <h3 style={{ marginBottom: "0.5em", textAlign: "center" }}>
-              Congragulations, your score on Trivia Racer is:
-            </h3>
-            <ScoreCurrent display={score} />
-            <Form saveScore={saveScore} />
-          </div>
+          <ScoreEnding score={score} saveScore={saveScore} />
         )}
         <ButtonPrimary name="Try Again" marginTop />
         <ButtonPrimary name="Change Topic" marginTop />

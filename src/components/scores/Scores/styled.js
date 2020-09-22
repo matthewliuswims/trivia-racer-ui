@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { DESKTOP_MIN_WIDTH } from "../constants"
+import { DESKTOP_MIN_WIDTH } from "../../constants"
 
 export const StyledScores = styled.section`
   display: flex;

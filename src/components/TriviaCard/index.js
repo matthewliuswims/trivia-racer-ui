@@ -16,7 +16,7 @@ const TriviaCard = ({ title, Icon, description, onClick }) => {
         <StyledCard__Title>{title}</StyledCard__Title>
       </StyledCard__Top>
       <StyledCard__Description>
-        <p>{description}</p>
+        <p>{`Example: ${description}`}</p>
       </StyledCard__Description>
     </StyledCard>
   )

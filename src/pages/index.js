@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import Layout from "../components/Layout"
 import Introduction from "../components/Introduction"
 import Blurbs from "../components/Blurbs"
-import Scores from "../components/Scores"
+import Scores from "../components/scores/Scores"
 
 // Styles
 import { StyledFooter } from "../components/Layout/styled"

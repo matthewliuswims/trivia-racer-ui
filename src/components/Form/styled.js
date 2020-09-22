@@ -2,5 +2,5 @@ import styled from "styled-components"
 
 export const StyledForm = styled.form`
   margin-top: 1em;
-  margin-bottom: 2em;
+  margin-bottom: 3em;
 `

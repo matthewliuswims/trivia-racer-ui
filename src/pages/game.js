@@ -11,7 +11,7 @@ import {
 // Components
 import Error from "../components/Error"
 import Layout from "../components/Layout"
-import ScoreCurrent from "../components/ScoreCurrent"
+import ScoreCurrent from "../components/scores/ScoreCurrent"
 import GameAnswers from "../components/GameAnswers"
 import GameQuestion from "../components/GameQuestion"
 import Loading from "../components/Loading"

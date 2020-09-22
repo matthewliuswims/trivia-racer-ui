@@ -5,6 +5,6 @@ import Button from "@material-ui/core/Button"
 export const StyledButtonSecondary = styled(Button)`
   color: white;
   background-color: ${props => props.theme.purple};
-  margin-top: ${props => (props.$marginTopSmall ? "0.5em" : "0")};
-  display: block;
+  height: 56px;
+  border-radius: 0px 5px 5px 0;
 `
