@@ -1,7 +1,6 @@
 import styled from "styled-components"
-import { motion } from "framer-motion"
 
-export const StyledButtonAnswer = styled(motion.button)`
+export const StyledButtonAnswer = styled.button`
   cursor: pointer;
   color: white;
   font-weight: bold;
