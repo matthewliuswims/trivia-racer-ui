@@ -15,6 +15,7 @@ import ScoreCurrent from "../components/scores/ScoreCurrent"
 import GameAnswers from "../components/GameAnswers"
 import GameQuestion from "../components/GameQuestion"
 import Loading from "../components/Loading"
+import ScoreHeader from "../components/scores/ScoreHeader"
 
 // Selectors
 import {
@@ -32,6 +33,7 @@ import { request } from "../helpers/request"
 import * as c from "../state/game_constants"
 import theme from "../components/Layout/theme"
 
+// @TODO: add modal
 const GamePage = ({
   location,
 
@@ -42,7 +44,8 @@ const GamePage = ({
   dispatch,
   score,
 }) => {
-  const intervalRef = useRef()
+  const timerRef = useRef()
+  const countdownRef = useRef()
   const { search } = location
 
   const category = queryString.parse(search).category
@@ -63,9 +66,6 @@ const GamePage = ({
           relativeUrl: `/v1/questions/?category=${category}&count=2`,
         })
         dispatch({ type: c.GAME_QUESTIONS_SET, questions: response })
-        intervalRef.current = setInterval(() => {
-          setTime(time => time - 1)
-        }, 1000)
       } catch (err) {
         console.error("error is", err)
         setError(err)
@@ -74,25 +74,17 @@ const GamePage = ({
       }
     }
     fetchQuestions()
-    return () => clearInterval(intervalRef.current)
+    return () => clearInterval(timerRef.current)
   }, [])
 
   useEffect(() => {
     if (gameEnded && !loadingQuestions) {
-      clearInterval(intervalRef.current)
+      clearInterval(timerRef.current)
       navigate(`/game-end`, {
         state: { fromGame: true },
       })
     }
   }, [time])
-
-  if (error) {
-    return <Error />
-  }
-
-  if (loadingQuestions || !question) {
-    return <Loading />
-  }
 
   const answerOnClick = answer => {
     dispatch({
@@ -108,14 +100,63 @@ const GamePage = ({
     }, 2500)
   }
 
+  const [countdown, setCountdown] = useState(3)
+
+  useEffect(() => {
+    if (!loadingQuestions) {
+      countdownRef.current = setInterval(() => {
+        setCountdown(countdown => {
+          if (countdown <= 0) {
+            clearInterval(countdownRef.current)
+            // start actual timer
+            timerRef.current = setInterval(() => {
+              setTime(time => time - 1)
+            }, 1000)
+          }
+          return countdown - 1
+        })
+      }, 1000)
+    }
+    return () => clearInterval(countdownRef.current)
+  }, [loadingQuestions])
+
+  if (error) {
+    return <Error />
+  }
+
+  if (loadingQuestions || !question) {
+    return <Loading />
+  }
+
+  if (countdown > -1) {
+    return (
+      <Layout
+        title="Game"
+        HeaderRight={<ScoreHeader>Score: {score}</ScoreHeader>}
+      >
+        <div style={{ height: "5em", width: "5em", margin: "auto" }}>
+          <CircularProgressbarWithChildren
+            value={(countdown / 3) * 100}
+            styles={buildStyles({ pathColor: theme.colorBlue })}
+          >
+            <ScoreCurrent display={countdown} />
+          </CircularProgressbarWithChildren>
+        </div>
+        <div style={{ marginTop: "2em", textAlign: "center" }}>
+          <h1>Get Ready!</h1>
+        </div>
+      </Layout>
+    )
+  }
+
   return (
-    <Layout title="Game">
+    <Layout title="Game" HeaderRight={<ScoreHeader>{score}</ScoreHeader>}>
       <div style={{ height: "5em", width: "5em", margin: "auto" }}>
         <CircularProgressbarWithChildren
           value={(time / initialTime) * 100}
           styles={buildStyles({ pathColor: theme.colorBlue })}
         >
-          <ScoreCurrent display={score} />
+          <ScoreCurrent display={time} />
         </CircularProgressbarWithChildren>
       </div>
       <GameQuestion question={question && question.name} />

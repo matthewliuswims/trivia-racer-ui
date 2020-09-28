@@ -9,7 +9,6 @@ import ButtonSecondary from "../ButtonSecondary"
 // Styled
 import { StyledForm } from "./styled"
 
-// @TODO Use material ui here.
 const Form = ({ saveScore }) => {
   const [value, setValue] = useState("")
 
@@ -34,6 +33,7 @@ const Form = ({ saveScore }) => {
           onChange={handleChange}
           label="Initials"
           inputProps={{
+            required: true,
             maxLength: 3,
             minLength: 1,
             placeholder: "up to three letters!",

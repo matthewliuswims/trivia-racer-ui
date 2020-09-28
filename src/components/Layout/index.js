@@ -28,12 +28,17 @@ const MATERIAL_THEME = createMuiTheme({
   },
 })
 
-const Layout = ({ children, title = "Trivia Racer", maxWidth = "900px" }) => {
+const Layout = ({
+  children,
+  title = "Trivia Racer",
+  maxWidth = "900px",
+  HeaderRight,
+}) => {
   return (
     <StylesProvider injectFirst>
       <ThemeProviderMUI theme={MATERIAL_THEME}>
         <ThemeProvider theme={theme}>
-          <Header title={title} />
+          <Header title={title} HeaderRight={HeaderRight} />
           <StyledLayout maxWidth={maxWidth}>{children}</StyledLayout>
           <Wave
             fill="#006FBB"

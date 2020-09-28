@@ -6,9 +6,13 @@ import PropTypes from "prop-types"
 import SEO from "../SEO"
 
 // Styled
-import { StyledHeader, StyledHeader__Link } from "./styled"
+import {
+  StyledHeader,
+  StyledHeader__Link,
+  StyledHeader__HeaderRightWrapper,
+} from "./styled"
 
-const Header = ({ title }) => {
+const Header = ({ title, HeaderRight }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -19,14 +23,16 @@ const Header = ({ title }) => {
     }
   `)
   const siteTitle = data.site.siteMetadata.title
-
   return (
     <>
       <SEO title={title} />
       <StyledHeader>
-        <h1>
+        <h1 style={{ margin: "auto" }}>
           <StyledHeader__Link to="/">{siteTitle}</StyledHeader__Link>
         </h1>
+        <StyledHeader__HeaderRightWrapper>
+          {HeaderRight !== undefined ? HeaderRight : <div />}
+        </StyledHeader__HeaderRightWrapper>
       </StyledHeader>
     </>
   )
