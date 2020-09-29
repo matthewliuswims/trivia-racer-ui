@@ -15,6 +15,7 @@ const handlers = {
       const answers = question.answers.map(answer => ({
         ...answer,
         animateState: "default",
+        chosen: false,
       }))
 
       return {
@@ -48,6 +49,7 @@ const handlers = {
       if (answer.id === correctID) {
         return {
           ...answer,
+          chosen: chosenID === answer.id,
           animateState: "correct",
         }
       }
@@ -55,6 +57,7 @@ const handlers = {
       if (answer.id === chosenID) {
         return {
           ...answer,
+          chosen: chosenID === answer.id,
           animateState: "incorrect",
         }
       }

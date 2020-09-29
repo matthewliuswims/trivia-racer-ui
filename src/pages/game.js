@@ -132,7 +132,7 @@ const GamePage = ({
     return (
       <Layout
         title="Game"
-        HeaderRight={<ScoreHeader>Score: {score}</ScoreHeader>}
+        HeaderRight={<ScoreHeader showToolTip>{score}</ScoreHeader>}
       >
         <div style={{ height: "5em", width: "5em", margin: "auto" }}>
           <CircularProgressbarWithChildren
