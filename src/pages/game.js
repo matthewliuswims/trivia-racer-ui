@@ -33,7 +33,6 @@ import { request } from "../helpers/request"
 import * as c from "../state/game_constants"
 import theme from "../components/Layout/theme"
 
-// @TODO: add modal
 const GamePage = ({
   location,
 
@@ -61,9 +60,8 @@ const GamePage = ({
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        // const response = await request(`/v1/questions/?category=${category}`)
         const response = await request({
-          relativeUrl: `/v1/questions/?category=${category}&count=2`,
+          relativeUrl: `/v1/questions/?category=${category}&count=60`,
         })
         dispatch({ type: c.GAME_QUESTIONS_SET, questions: response })
       } catch (err) {
@@ -153,10 +151,10 @@ const GamePage = ({
     <Layout title="Game" HeaderRight={<ScoreHeader>{score}</ScoreHeader>}>
       <div style={{ height: "5em", width: "5em", margin: "auto" }}>
         <CircularProgressbarWithChildren
-          value={(time / initialTime) * 100}
+          value={time > 0 ? (time / initialTime) * 100 : 0}
           styles={buildStyles({ pathColor: theme.colorBlue })}
         >
-          <ScoreCurrent display={time} />
+          <ScoreCurrent display={time > 0 ? time : 0} />
         </CircularProgressbarWithChildren>
       </div>
       <GameQuestion question={question && question.name} />

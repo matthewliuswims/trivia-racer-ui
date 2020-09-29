@@ -60,8 +60,8 @@ const IndexPage = ({ dispatch, scoresRecent, scoresTop }) => {
         loadingScores={loadingScores}
       />
       <StyledFooter>
-        Built with ❤️ &nbsp; - comments and feedback welcome to my email:
-        matthew [AT] matthewliu.net
+        Built with ❤️ &nbsp;- comments and feedback welcome to my email: matthew
+        [AT] matthewliu.net
       </StyledFooter>
     </Layout>
   )

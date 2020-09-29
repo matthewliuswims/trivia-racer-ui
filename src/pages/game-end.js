@@ -136,8 +136,16 @@ const GameEndPage = ({
         ) : (
           <ScoreEnding score={score} saveScore={saveScore} />
         )}
-        <ButtonPrimary name="Try Again" marginTop />
-        <ButtonPrimary name="Change Topic" marginTop />
+        <ButtonPrimary
+          name="Try Again"
+          marginTop
+          onClick={() => navigate(-1)}
+        />
+        <ButtonPrimary
+          name="Change Topic"
+          marginTop
+          onClick={() => navigate("/")}
+        />
       </div>
       <div style={{ maxWidth: "900px" }}>
         <Scores

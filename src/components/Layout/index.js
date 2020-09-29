@@ -10,7 +10,6 @@ import Header from "../Header"
 import { StyledLayout } from "./styled"
 import theme from "./theme"
 
-// @TODO: cull this - need to see reference of other files eventually
 import "./global.css"
 
 const MATERIAL_THEME = createMuiTheme({
