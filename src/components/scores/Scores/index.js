@@ -10,15 +10,16 @@ import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
 // Styles
-import { StyledScores, StyledScores__Content } from "./styled"
+import {
+  StyledScores,
+  StyledScores__Content,
+  StyledScores__Content__Title,
+} from "./styled"
 
 const useStyles = makeStyles({
   paper: {
     border: "8px solid #EBF5FA",
     maxWidth: "300px",
-  },
-  title: {
-    marginBottom: "1em",
   },
 })
 
@@ -56,7 +57,7 @@ const Scores = ({ scoresTop = [], scoresRecent = [], loadingScores }) => {
   return (
     <StyledScores>
       <StyledScores__Content>
-        <h2 className={classes.title}>Top Scores</h2>
+        <StyledScores__Content__Title>Top Scores</StyledScores__Content__Title>
         <TableScores
           data={scoresTop}
           classes={classes}
@@ -64,7 +65,7 @@ const Scores = ({ scoresTop = [], scoresRecent = [], loadingScores }) => {
         />
       </StyledScores__Content>
       <StyledScores__Content>
-        <h2 className={classes.title}>Most Recent</h2>
+        <StyledScores__Content__Title>Most Recent</StyledScores__Content__Title>
         <TableScores
           data={scoresRecent}
           classes={classes}

@@ -22,3 +22,7 @@ export const StyledScores__Content = styled.div`
     margin: 40px;
   }
 `
+
+export const StyledScores__Content__Title = styled.h2`
+  margin-bottom: 1em;
+`
