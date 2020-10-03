@@ -56,6 +56,7 @@ const ButtonAnswer = ({ answer = {}, onClick, score }) => {
       <StyledButtonAnswer
         onClick={() => onClick(answer)}
         animate={answer.animateState}
+        disabled={answer.animateState !== "default"}
       >
         {he.decode(answer.name)}
       </StyledButtonAnswer>

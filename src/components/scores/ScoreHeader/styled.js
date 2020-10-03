@@ -1,7 +1,11 @@
 import styled from "styled-components"
+import { DESKTOP_MIN_WIDTH } from "../../constants"
 
 export const StyledScoreHeader = styled.h2`
   color: white;
+  @media ${DESKTOP_MIN_WIDTH} {
+    padding-right: 24px;
+  }
 `
 
 export const StyledWrapper = styled.div`
@@ -12,6 +16,10 @@ export const StyledScoreHeader__ToolTip = styled.div`
   position: absolute;
   z-index: 2;
   right: -5px;
+
+  @media ${DESKTOP_MIN_WIDTH} {
+    right: 20px;
+  }
   top: 55px;
 `
 
