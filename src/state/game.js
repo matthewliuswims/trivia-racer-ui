@@ -37,33 +37,23 @@ const handlers = {
   },
   [c.GAME_ANSWER_CHOICE]: (state, action) => {
     const { correctID, questionID, chosenID } = action
-    const scoreUpdated =
-      chosenID === correctID
-        ? state.score + 1
-        : state.score === 0
-        ? 0
-        : state.score - 1
+    const scoreUpdated = chosenID === correctID ? state.score + 1 : state.score
 
     const answersAnimated = state.answers.map(answer => {
-      // always show the correct answer
+      let animateState = "unchosen"
+
       if (answer.id === correctID) {
-        return {
-          ...answer,
-          chosen: chosenID === answer.id,
-          animateState: "correct",
-        }
+        // correct answer display (always show)
+        animateState = "correct"
+      } else if (chosenID === answer.id) {
+        // chosen id was not the correct answer id (i.e. incorrect answer)
+        animateState = "incorrect"
       }
-      // incorrect answer was chosen
-      if (answer.id === chosenID) {
-        return {
-          ...answer,
-          chosen: chosenID === answer.id,
-          animateState: "incorrect",
-        }
-      }
+
       return {
         ...answer,
-        animateState: "unchosen",
+        animateState,
+        chosen: answer.id === chosenID,
       }
     })
 

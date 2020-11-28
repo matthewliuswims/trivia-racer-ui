@@ -14,6 +14,10 @@ export const StyledButtonAnswer = styled.button`
     if (props.animate === "unchosen") return "50%;"
     return "100%;"
   }}
+  cursor: ${props => {
+    if (props.disabled) return "not-allowed;"
+    return "pointer;"
+  }}
   border-radius: 20px;
   width: 100%;
   height: 3em;

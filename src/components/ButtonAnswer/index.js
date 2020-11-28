@@ -29,23 +29,6 @@ const renderToolTip = (animateState, chosen, score) => {
     )
   }
 
-  if (animateState === "incorrect") {
-    return (
-      <StyledButtonTooltip>
-        <StyledButtonTooltip__Bubble animate={animateState}>
-          {score === 0 ? (
-            <StyledButtonTooltip__Bubble__Text>
-              -0
-            </StyledButtonTooltip__Bubble__Text>
-          ) : (
-            <StyledButtonTooltip__Bubble__Text>
-              -1
-            </StyledButtonTooltip__Bubble__Text>
-          )}
-        </StyledButtonTooltip__Bubble>
-      </StyledButtonTooltip>
-    )
-  }
   return null
 }
 

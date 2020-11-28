@@ -95,7 +95,7 @@ const GamePage = ({
       // wait a little bit to update the question and answers in the UI
       // if the user were to refresh the page before the timeout, session storage will take care of that
       dispatch({ type: c.GAME_QUESTION_NEW })
-    }, 2500)
+    }, 1500)
   }
 
   const [countdown, setCountdown] = useState(3)
