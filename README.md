@@ -1,5 +1,5 @@
 <h1 align="center">
-  Trivia Racer UI
+  Trivia Racer UI. Deployed at https://triviaracer.io/
 </h1>
 
 ## 🚀 Quick start
@@ -18,7 +18,7 @@
 
 3.  **Open the source code and start editing!**
 
-    Your site is now running at `http://localhost:8000`!
+    Your site is now running at `http://localhost:7777/`!
 
 ## 🧐 What's inside?
 
