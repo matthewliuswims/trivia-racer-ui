@@ -62,5 +62,4 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
 
 ## 💫 Deploy
 
-- follow https://dashboard.heroku.com/apps/trivia-racer-ui/deploy/heroku-git
-- git push heroku master (after commiting changes)
+- uses netlify
