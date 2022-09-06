@@ -1,5 +1,5 @@
 <h1 align="center">
-  Trivia Racer UI. Deployed at https://triviaracer.net/
+  Trivia Racer UI :). Deployed at https://triviaracer.net/
 </h1>
 
 ## 🚀 Quick start
